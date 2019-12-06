@@ -12,11 +12,6 @@ with open(str(cwd) + '/res/src.txt', encoding='UTF-8') as f:
     origin = f.read()
     f.close()
 
-s_range = 20
-top = 3
-cur_pos = 0
-j = 10
-
 
 class MainFrame(wx.Frame):
     def __init__(self, *args, **kw):
@@ -42,12 +37,7 @@ class MainFrame(wx.Frame):
         self.cur_pos = 0
         self.rew_arr = []
 
-        # self.bigbox.BraceBadLight(30)
         self.suggestionlist = wx.ListCtrl(pnl, size=(165, 493), pos=(610, 7), style=wx.LC_REPORT | wx.SUNKEN_BORDER)
-        self.suggestionlist.InsertColumn(0, 'Słowo')
-        self.suggestionlist.InsertColumn(1, 'Wynik')
-        # self.suggestionlist.Append(('K', 10))
-        # self.suggestionlist.Append(('Kurwa', 10))
 
         self.makeMenuBar()
         self.Bind(wx.EVT_TEXT, self.OnTextBox, self.textbox)
@@ -59,6 +49,8 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_LIST_ITEM_RIGHT_CLICK, self.OnListDbclick, self.suggestionlist)
         self.bigbox.StyleSetSpec(2, "back:#bcaaa4")
         self.bigbox.StyleSetSpec(3, "back:#ff7043")
+
+        self.textbox.SetValue('')
 
     def OnUndo(self, event):
         try:
@@ -110,8 +102,6 @@ class MainFrame(wx.Frame):
 
     def OnSubmit(self, event):
         if len(self.curr_arr) > 0:
-            # for x in self.curr_arr:
-            #     self.overall_arr.append(x)
             self.overall_arr.append(self.curr_arr)
             self.cur_pos = self.curr_arr[-1] + 1
             self.textbox.SetValue('')
@@ -128,6 +118,10 @@ class MainFrame(wx.Frame):
             for i in rar:
                 self.highlight(i, style=3)
 
+        self.suggestionlist.ClearAll()
+        self.suggestionlist.InsertColumn(0, 'Słowo')
+        self.suggestionlist.InsertColumn(1, 'Wynik')
+
     def OnTextBox(self, event):
         st = event.GetString()
 
@@ -135,9 +129,6 @@ class MainFrame(wx.Frame):
         self.curr_arr = arr
         self.Redraw()
 
-        self.suggestionlist.ClearAll()
-        self.suggestionlist.InsertColumn(0, 'Słowo')
-        self.suggestionlist.InsertColumn(1, 'Wynik')
         self.k = wojajo.dopasowywanie_frazy(st, wojajo.wordlist, origin.lower(), N=30, l=self.cur_pos)
 
         if self.k:
