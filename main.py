@@ -118,16 +118,16 @@ class MainFrame(wx.Frame):
             for i in rar:
                 self.highlight(i, style=3)
 
-        self.suggestionlist.ClearAll()
-        self.suggestionlist.InsertColumn(0, 'Słowo')
-        self.suggestionlist.InsertColumn(1, 'Wynik')
-
     def OnTextBox(self, event):
         st = event.GetString()
 
         arr = wojajo.szukaj_frazy(origin.lower(), st.lower(), l=self.cur_pos)
         self.curr_arr = arr
         self.Redraw()
+
+        self.suggestionlist.ClearAll()
+        self.suggestionlist.InsertColumn(0, 'Słowo')
+        self.suggestionlist.InsertColumn(1, 'Wynik')
 
         self.k = wojajo.dopasowywanie_frazy(st, wojajo.wordlist, origin.lower(), N=30, l=self.cur_pos)
 
