@@ -86,7 +86,6 @@ class MainFrame(wx.Frame):
 
     def highlight(self, pos, length=1, style=2):
         line = 1
-        # Move to line
         self.bigbox.GotoLine(line - 1)
         # Get position
         pos = len(origin[:pos].encode('utf-8'))
