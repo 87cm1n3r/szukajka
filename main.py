@@ -1,12 +1,14 @@
+from pathlib import Path
+
 import wx
 import wx.stc
+
 import wojajo
-from pathlib import Path
 
 cwd = Path(__file__).parents[0]
 
 origin = ''
-with open(str(cwd) + '/src.txt', encoding='UTF-8') as f:
+with open(str(cwd) + '/res/src.txt', encoding='UTF-8') as f:
     origin = f.read()
     f.close()
 
@@ -22,17 +24,17 @@ class MainFrame(wx.Frame):
         pnl = wx.Panel(self)
 
         icon = wx.EmptyIcon()
-        icon.CopyFromBitmap(wx.Bitmap("icon.ico", wx.BITMAP_TYPE_ANY))
+        icon.CopyFromBitmap(wx.Bitmap("res/icon.ico", wx.BITMAP_TYPE_ANY))
         self.SetIcon(icon)
 
         self.textbox = wx.TextCtrl(pnl, size=(500, 30), pos=(10, 7), style=wx.TE_PROCESS_ENTER)
         self.bigbox = wx.stc.StyledTextCtrl(pnl, size=(590, 493), pos=(10, 41))
         self.bigbox.SetText(origin)
-        bmp = wx.Bitmap("add.png", wx.BITMAP_TYPE_ANY)
+        bmp = wx.Bitmap("res/add.png", wx.BITMAP_TYPE_ANY)
         self.submitbutt = wx.BitmapButton(pnl, size=(80, 30), pos=(520, 7), bitmap=bmp)
-        bmp = wx.Bitmap("undo.png", wx.BITMAP_TYPE_ANY)
+        bmp = wx.Bitmap("res/undo.png", wx.BITMAP_TYPE_ANY)
         self.undobutt = wx.BitmapButton(pnl, size=(30, 30), pos=(610, 505), bitmap=bmp)
-        bmp = wx.Bitmap("redo.png", wx.BITMAP_TYPE_ANY)
+        bmp = wx.Bitmap("res/redo.png", wx.BITMAP_TYPE_ANY)
         self.redobutt = wx.BitmapButton(pnl, size=(30, 30), pos=(645, 505), bitmap=bmp)
 
         self.curr_arr = []
