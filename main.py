@@ -132,8 +132,8 @@ class MainFrame(wx.Frame):
         self.k = wojajo.dopasowywanie_frazy(st, wojajo.wordlist, origin.lower(), N=30, l=self.cur_pos)
 
         if self.k:
-            for chuj in self.k:
-                self.suggestionlist.Append((chuj[0], chuj[1]))
+            for j in self.k:
+                self.suggestionlist.Append((j[0], j[1]))
         for i in arr:
             self.highlight(i)
 
